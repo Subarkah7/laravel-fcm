@@ -64,7 +64,14 @@ class LoginController extends Controller
 
                 return redirect()->route('admin.home');
             } else  {
-                auth()->user()->update(['device_token' => $request->device_token]);
+               // auth()->user()->update(['device_token' => $request->device_token]);
+
+               $device = DeviceToken::create([
+                    'user_id' => auth()->user()->id,
+                    'device_token' => $request->device_token
+                ]);
+
+
                 return redirect()->route('home');
             }
         }else{
